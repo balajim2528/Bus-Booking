@@ -18,7 +18,7 @@ export interface TicketResponse {
 })
 export class PassengerService {
 
-private apiUrl = '/irctc/ticket';
+private apiUrl = 'http://localhost:8080/irctc/ticket';
 
   constructor(private http: HttpClient) {}
 

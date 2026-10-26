@@ -1,0 +1,56 @@
+services:
+  service-registry:
+    build: ./service-registry
+    container_name: service-registry
+    ports:
+      - "8761:8761"
+    networks:
+      - busbooking-network
+
+  fpoprod-junir:
+    build: ./fpoprod_junIR
+    container_name: fpoprod-junir
+    ports:
+      - "8081:8080"
+    depends_on:
+      - service-registry
+    networks:
+      - busbooking-network
+
+  fpoprod-junmm:
+    build: ./fpoprod_junmm
+    container_name: fpoprod-junmm
+    ports:
+      - "8082:8080"
+    depends_on:
+      - service-registry
+    networks:
+      - busbooking-network
+
+  fpoirctcapigateway:
+    build: ./fpoirctcapigateway
+    container_name: fpoirctcapigateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-registry
+      - fpoprod-junir
+      - fpoprod-junmm
+    networks:
+      - busbooking-network
+
+  angular-frontend:
+    build:
+      context: ../Frontend
+      dockerfile: Dockerfile
+    container_name: angular-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - fpoirctcapigateway
+    networks:
+      - busbooking-network
+
+networks:
+  busbooking-network:
+    driver: bridge
