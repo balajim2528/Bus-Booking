@@ -1,0 +1,36 @@
+
+<div class="login-container">
+  <h1>Bus Booking System</h1>
+  <h2>Welcome! Please Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+    <label>Username</label>
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Enter username">
+
+    @if (loginForm.controls.username.touched &&
+         loginForm.controls.username.invalid) {
+      <small>Username is required</small>
+    }
+
+    <label>Password</label>
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Enter password">
+
+    @if (loginForm.controls.password.touched &&
+         loginForm.controls.password.invalid) {
+      <small>Password is required</small>
+    }
+
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
+
+    <button type="submit">Login</button>
+  </form>
+</div>
