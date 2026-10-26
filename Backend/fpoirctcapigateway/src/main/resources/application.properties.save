@@ -1,0 +1,16 @@
+spring.application.name=fpoirctcapigateway
+server.port=8080
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+
+spring.cloud.gateway.server.webmvc.routes[0].id=irctc-api
+spring.cloud.gateway.server.webmvc.routes[0].uri=lb://irctc-api
+spring.cloud.gateway.server.webmvc.routes[0].predicates[0]=Path=/irctc/**
+spring.cloud.gateway.server.webmvc.routes[0].filters[0]=StripPrefix=1
+
+
+spring.cloud.gateway.server.webflux.globalcors.cors-configurations.[/**].allowed-origins=http://localhost:4200
+spring.cloud.gateway.server.webflux.globalcors.cors-configurations.[/**].allowed-methods=GET,POST,PUT,DELETE,OPTIONS
+spring.cloud.gateway.server.webflux.globalcors.cors-configurations.[/**].allowed-headers=*
+spring.cloud.gateway.server.webflux.globalcors.cors-configurations.[/**].allow-credentials=true
